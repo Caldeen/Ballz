@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -19,6 +20,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
+	Box2DDebugRenderer debugRenderer=new Box2DDebugRenderer();
 	OrthographicCamera cam;
 	@Override
 	public void create () {
@@ -37,11 +39,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+		debugRenderer.render(world,cam.combined);
 		tiledMapRenderer.render();
+
 		batch.begin();
 
 		batch.end();
