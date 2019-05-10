@@ -11,7 +11,6 @@ public class Ball {
     private Body body;
     private float x, y, radius, gravityScale = 1;
     private Sprite sprite;
-
     public Ball(World world, Batch batch, float x, float y, float radius) {
         this.world = world;
         this.batch = batch;
@@ -45,6 +44,10 @@ public class Ball {
 
     public void update() {
 
+    }
+
+    public Body getBody() {
+        return body;
     }
 
 }

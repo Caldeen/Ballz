@@ -1,11 +1,14 @@
 package com.mygdx.game.Player;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class EventHandler implements InputProcessor {
     Ball ball;
-    public EventHandler(Ball ball) {
+    OrthographicCamera cam;
+    public EventHandler(Ball ball, OrthographicCamera cam) {
         this.ball = ball;
+        this.cam = cam;
     }
 
     @Override
