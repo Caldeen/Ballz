@@ -48,7 +48,7 @@ public class EventHandler implements InputProcessor {
         if (button == Input.Buttons.LEFT) {
             mouseDown = false;
             prevX = screenX;
-            prevY = screenY;
+            prevY = MyGdxGame.screenSize.y - screenY;
         }
         return false;
     }

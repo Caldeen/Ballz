@@ -64,7 +64,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		tiledMapRenderer.render();
-		debugRenderer.render(world,viewCam.combined);
+		debugRenderer.render(world,cam.combined);
 
 
 
@@ -85,9 +85,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (EventHandler.mouseDown) {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
-			float vecX = -Math.abs(currentX-EventHandler.prevX);
-			float vecY = -Math.abs(currentY-EventHandler.prevY);
-			ball.move(vecX, vecY);
+//			float vecX = -Math.abs(currentX-EventHandler.prevX);
+//			float vecY = -Math.abs(currentY-EventHandler.prevY);
+//			ball.move(vecX, vecY);
+			ball.move(currentX, currentY);
 		}
 	}
 
