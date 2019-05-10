@@ -34,17 +34,17 @@ public class MyGdxGame extends ApplicationAdapter {
 		screenSize=new Vector2(1600,900);
 		cam=new OrthographicCamera();
 		viewCam=new OrthographicCamera();
-		viewCam.setToOrtho(false,200*0.7f,120*0.7f);
+		viewCam.setToOrtho(false,100*0.8f,56.25f*0.8f);
 		debugRenderer=new Box2DDebugRenderer();
 		world=new World(new Vector2(0,-10),true);
-		cam.setToOrtho(false,200,120);
+		cam.setToOrtho(false,100,56.25f);
 		Gdx.graphics.setWindowedMode((int)screenSize.x,(int)screenSize.y);
 		batch = new SpriteBatch();
 		tiledMap = new TmxMapLoader().load("core/assets/testMapa.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		MapParser.parseMapLayers(world, tiledMap);
 
-		ball = new Ball(world, batch, 100.0f, 100.0f, 1.0f);
+		ball = new Ball(world, batch, 50.0f, 50.0f, 0.5f);
 		EventHandler eventHandler = new EventHandler(ball,cam);
 		Gdx.input.setInputProcessor(eventHandler);
 	}
@@ -52,21 +52,22 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		world.step(1/60f, 6, 2);
-		tiledMapRenderer.setView(viewCam);
+
 
 		viewCam.position.set(ball.getBody().getWorldCenter().x,ball.getBody().getWorldCenter().y,0);
 		viewCam.update();
 		cam.update();
+		tiledMapRenderer.setView(cam);
 		batch.setProjectionMatrix(cam.combined);
 		System.out.println(cam.position);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+		tiledMapRenderer.render();
 		debugRenderer.render(world,viewCam.combined);
 
 
-		tiledMapRenderer.render();
+
 
 		batch.begin();
 
