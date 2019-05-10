@@ -12,6 +12,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.Player.Ball;
+import com.mygdx.game.Player.EventHandler;
 
 public class MyGdxGame extends ApplicationAdapter {
 	public static int METER_TO_PIX=16;
@@ -20,6 +22,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	TiledMap tiledMap;
 	TiledMapRenderer tiledMapRenderer;
 	OrthographicCamera cam;
+
+	Ball ball;
+
 	@Override
 	public void create () {
 		cam=new OrthographicCamera();
@@ -29,6 +34,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		tiledMap = new TmxMapLoader().load("core/assets/testMapa.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		MapParser.parseMapLayers(world, tiledMap);
+
+		ball = new Ball(world, batch, 100.0f, 100.0f, 50.0f);
+		EventHandler eventHandler = new EventHandler(ball);
+		Gdx.input.setInputProcessor(eventHandler);
 	}
 
 	@Override
@@ -40,6 +49,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		world.step(1/60f, 6, 2);
 
 		tiledMapRenderer.render();
 		batch.begin();

@@ -12,14 +12,13 @@ public class Ball {
     private float x, y, radius, gravityScale = 1;
     private Sprite sprite;
 
-    public Ball(World world, Batch batch, Body body, float x, float y, float radius, Sprite sprite) {
+    public Ball(World world, Batch batch, float x, float y, float radius) {
         this.world = world;
         this.batch = batch;
-        this.body = body;
         this.x = x;
         this.y = y;
         this.radius = radius;
-        this.sprite = sprite;
+//        this.sprite = sprite;
         onCreate();
     }
 
