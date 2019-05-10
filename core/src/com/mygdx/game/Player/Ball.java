@@ -9,7 +9,7 @@ public class Ball {
     private BodyDef bodyDef = new BodyDef();
     private Batch batch;
     private Body body;
-    private float x, y, radius, gravityScale = 1;
+    private float x, y, radius, gravityScale = 30;
     private Sprite sprite;
     public Ball(World world, Batch batch, float x, float y, float radius) {
         this.world = world;
@@ -31,9 +31,9 @@ public class Ball {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
-        fixtureDef.density = 0.1f;
+        fixtureDef.density = 10.1f;
         fixtureDef.friction = 0.1f;
-        fixtureDef.restitution = 0.1f;
+        fixtureDef.restitution = 0.5f;
 
         Fixture fixture = body.createFixture(fixtureDef);
         fixture.setUserData(this);
@@ -48,6 +48,10 @@ public class Ball {
 
     public Body getBody() {
         return body;
+    }
+
+    public void move(float newX, float newY) {
+        body.applyForce(5.0f, 5.0f, newX, newY, true);
     }
 
 }
