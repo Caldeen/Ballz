@@ -27,15 +27,14 @@ public class MyGdxGame extends ApplicationAdapter {
 	private Box2DDebugRenderer debugRenderer;
 	private OrthographicCamera cam;
 	private OrthographicCamera viewCam;
-
 	Ball ball;
 
 	@Override
 	public void create () {
 		screenSize=new Vector2(1600,900);
-		viewCam=new OrthographicCamera();
-		viewCam.setToOrtho(false,100,60);
 		cam=new OrthographicCamera();
+		viewCam=new OrthographicCamera();
+		viewCam.setToOrtho(false,200*0.7f,120*0.7f);
 		debugRenderer=new Box2DDebugRenderer();
 		world=new World(new Vector2(0,-10),true);
 		cam.setToOrtho(false,200,120);
@@ -52,18 +51,19 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		tiledMapRenderer.setView(cam);
-		cam.update();
-		cam.position.set(ball.getBody().getWorldCenter().x,ball.getBody().getWorldCenter().y,0);
-		viewCam.update();
-		batch.setProjectionMatrix(viewCam.combined);
+		world.step(1/60f, 6, 2);
+		tiledMapRenderer.setView(viewCam);
 
+		viewCam.position.set(ball.getBody().getWorldCenter().x,ball.getBody().getWorldCenter().y,0);
+		viewCam.update();
+		cam.update();
+		batch.setProjectionMatrix(cam.combined);
+		System.out.println(cam.position);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		debugRenderer.render(world,cam.combined.scl(1.2f));
 
-		world.step(1/60f, 6, 2);
+		debugRenderer.render(world,viewCam.combined);
 
 
 		tiledMapRenderer.render();
