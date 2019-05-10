@@ -18,23 +18,15 @@ import com.mygdx.game.Player.EventHandler;
 
 public class MyGdxGame extends ApplicationAdapter {
 	public static int METER_TO_PIX=16;
-<<<<<<< HEAD
 	private World world;
 	private SpriteBatch batch;
 	private TiledMap tiledMap;
 	private TiledMapRenderer tiledMapRenderer;
 	private Box2DDebugRenderer debugRenderer;
 	private OrthographicCamera cam;
-=======
-	World world;
-	SpriteBatch batch;
-	TiledMap tiledMap;
-	TiledMapRenderer tiledMapRenderer;
-	OrthographicCamera cam;
 
 	Ball ball;
 
->>>>>>> ball
 	@Override
 	public void create () {
 		cam=new OrthographicCamera();
@@ -61,12 +53,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-<<<<<<< HEAD
 		debugRenderer.render(world,cam.combined);
-=======
+
 		world.step(1/60f, 6, 2);
 
->>>>>>> ball
+
 		tiledMapRenderer.render();
 
 		batch.begin();
