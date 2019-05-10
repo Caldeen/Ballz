@@ -51,8 +51,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		world.step(1/60f, 6, 2);
 
+		world.step(1/60f, 6, 2);
+		moveBall();
 
 		viewCam.position.set(ball.getBody().getWorldCenter().x,ball.getBody().getWorldCenter().y,0);
 		viewCam.update();
@@ -70,7 +71,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		batch.begin();
-		moveBall();
+
 		batch.end();
 	}
 	
@@ -88,6 +89,11 @@ public class MyGdxGame extends ApplicationAdapter {
 //			float vecX = -Math.abs(currentX-EventHandler.prevX);
 //			float vecY = -Math.abs(currentY-EventHandler.prevY);
 //			ball.move(vecX, vecY);
+			//ball.move(currentX, currentY);
+		}
+		if(Gdx.input.isTouched()){
+			float currentX = Gdx.input.getX();
+			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
 			ball.move(currentX, currentY);
 		}
 	}
