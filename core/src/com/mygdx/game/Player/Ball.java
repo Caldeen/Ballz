@@ -3,6 +3,7 @@ package com.mygdx.game.Player;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.MyGdxGame;
 
 public class Ball {
     private World world;
@@ -51,7 +52,9 @@ public class Ball {
     }
 
     public void move(float newX, float newY) {
-        body.applyForce(5.0f, 5.0f, body.getPosition().x, body.getPosition().y, true);
+//        body.applyForce(5.0f, 5.0f, body.getPosition().x, body.getPosition().y, true);
+        body.setTransform(body.getPosition().x + newX, body.getPosition().y + newY, body.getAngle());
+//        body.setTransform(newX / MyGdxGame.METER_TO_PIX, newY / MyGdxGame.METER_TO_PIX, body.getAngle());
     }
 
 }

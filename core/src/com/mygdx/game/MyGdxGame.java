@@ -70,7 +70,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		batch.begin();
-
+		moveBall();
 		batch.end();
 	}
 	
@@ -80,4 +80,15 @@ public class MyGdxGame extends ApplicationAdapter {
 		debugRenderer.dispose();
 		world.dispose();
 	}
+
+	public void moveBall() {
+		if (EventHandler.mouseDown) {
+			float currentX = Gdx.input.getX();
+			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
+			float vecX = -Math.abs(currentX-EventHandler.prevX);
+			float vecY = -Math.abs(currentY-EventHandler.prevY);
+			ball.move(vecX/100, vecY/100);
+		}
+	}
+
 }

@@ -39,10 +39,6 @@ public class EventHandler implements InputProcessor {
             mouseDown = true;
             prevX = screenX;
             prevY = MyGdxGame.screenSize.y - screenY;
-//            ball.move(screenX, screenY);
-            System.out.println(screenX + " " + prevY);
-//            cam.position.set(100, 100, 0);
-//            cam.update();
         }
         return false;
     }
