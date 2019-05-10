@@ -60,12 +60,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		cam.update();
 		tiledMapRenderer.setView(cam);
 		batch.setProjectionMatrix(cam.combined);
-		System.out.println(cam.position);
+//		System.out.println(cam.position);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		tiledMapRenderer.render();
-		debugRenderer.render(world,cam.combined);
+		debugRenderer.render(world,viewCam.combined);
 
 
 
@@ -86,15 +86,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (EventHandler.mouseDown) {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
-//			float vecX = -Math.abs(currentX-EventHandler.prevX);
-//			float vecY = -Math.abs(currentY-EventHandler.prevY);
-//			ball.move(vecX, vecY);
-			//ball.move(currentX, currentY);
-		}
-		if(Gdx.input.isTouched()){
-			float currentX = Gdx.input.getX();
-			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
-			ball.move(currentX, currentY);
+			float vecX = -(currentX-EventHandler.prevX) / 100f;
+			float vecY = -(currentY-EventHandler.prevY) / 56.25f;
+			ball.move(vecX, vecY);
 		}
 	}
 
