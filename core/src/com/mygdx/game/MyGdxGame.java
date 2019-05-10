@@ -19,6 +19,7 @@ import com.sun.org.apache.xpath.internal.operations.Or;
 
 public class MyGdxGame extends ApplicationAdapter {
 	public static int METER_TO_PIX=16;
+	public static Vector2 screenSize;
 	private World world;
 	private SpriteBatch batch;
 	private TiledMap tiledMap;
@@ -31,13 +32,14 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+		screenSize=new Vector2(1600,900);
 		viewCam=new OrthographicCamera();
 		viewCam.setToOrtho(false,100,60);
 		cam=new OrthographicCamera();
 		debugRenderer=new Box2DDebugRenderer();
 		world=new World(new Vector2(0,-10),true);
 		cam.setToOrtho(false,200,120);
-		Gdx.graphics.setWindowedMode(1600,900);
+		Gdx.graphics.setWindowedMode((int)screenSize.x,(int)screenSize.y);
 		batch = new SpriteBatch();
 		tiledMap = new TmxMapLoader().load("core/assets/testMapa.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -59,7 +61,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		debugRenderer.render(world,cam.combined);
+		debugRenderer.render(world,cam.combined.scl(1.2f));
 
 		world.step(1/60f, 6, 2);
 
