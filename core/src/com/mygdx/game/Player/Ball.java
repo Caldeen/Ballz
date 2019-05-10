@@ -31,7 +31,7 @@ public class Ball {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;
-        fixtureDef.density = 10.1f;
+        fixtureDef.density = 0.2f;
         fixtureDef.friction = 0.1f;
         fixtureDef.restitution = 0.5f;
 
@@ -51,7 +51,7 @@ public class Ball {
     }
 
     public void move(float newX, float newY) {
-        body.applyForce(5.0f, 5.0f, newX, newY, true);
+        body.applyForce(5.0f, 5.0f, body.getPosition().x, body.getPosition().y, true);
     }
 
 }
