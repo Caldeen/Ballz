@@ -3,6 +3,7 @@ package com.mygdx.game.Player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.game.MyGdxGame;
 
 public class EventHandler implements InputProcessor {
     private Ball ball;
@@ -37,9 +38,9 @@ public class EventHandler implements InputProcessor {
         if (button == Input.Buttons.LEFT) {
             mouseDown = true;
             prevX = screenX;
-            prevY = screenY;
-            ball.move(screenX, screenY);
-            System.out.println(screenX + " " + screenY);
+            prevY = MyGdxGame.screenSize.y - screenY;
+//            ball.move(screenX, screenY);
+            System.out.println(screenX + " " + prevY);
 //            cam.position.set(100, 100, 0);
 //            cam.update();
         }
