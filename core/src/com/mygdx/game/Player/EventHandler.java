@@ -38,6 +38,8 @@ public class EventHandler implements InputProcessor {
             mouseDown = true;
             prevX = screenX;
             prevY = screenY;
+            ball.move(screenX, screenY);
+            System.out.println(screenX + " " + screenY);
 //            cam.position.set(100, 100, 0);
 //            cam.update();
         }
