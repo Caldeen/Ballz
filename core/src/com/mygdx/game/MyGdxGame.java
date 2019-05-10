@@ -33,13 +33,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		debugRenderer=new Box2DDebugRenderer();
 		world=new World(new Vector2(0,-10),true);
 		cam.setToOrtho(false,200,120);
+
 		batch = new SpriteBatch();
 		tiledMap = new TmxMapLoader().load("core/assets/testMapa.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		MapParser.parseMapLayers(world, tiledMap);
 
-		ball = new Ball(world, batch, 100.0f, 100.0f, 50.0f);
-		EventHandler eventHandler = new EventHandler(ball);
+		ball = new Ball(world, batch, 100.0f, 100.0f, 1.0f);
+		EventHandler eventHandler = new EventHandler(ball,cam);
 		Gdx.input.setInputProcessor(eventHandler);
 	}
 
