@@ -25,11 +25,13 @@ public class EventHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println("touchDown");
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        System.out.println("touchUp");
         return false;
     }
 
