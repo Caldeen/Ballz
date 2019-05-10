@@ -86,7 +86,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
 			float vecX = -Math.abs(currentX-EventHandler.prevX);
 			float vecY = -Math.abs(currentY-EventHandler.prevY);
-			ball.move(vecX/100, vecY/100);
+			ball.move(vecX, vecY);
 		}
 	}
 
