@@ -1,14 +1,20 @@
 package com.mygdx.game.Player;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class EventHandler implements InputProcessor {
-    Ball ball;
-    OrthographicCamera cam;
+    private Ball ball;
+    private OrthographicCamera cam;
+    public static boolean mouseDown;
+    public static float prevX;
+    public static float prevY;
+
     public EventHandler(Ball ball, OrthographicCamera cam) {
         this.ball = ball;
         this.cam = cam;
+        mouseDown = false;
     }
 
     @Override
@@ -28,13 +34,23 @@ public class EventHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchDown");
+        if (button == Input.Buttons.LEFT) {
+            mouseDown = true;
+            prevX = screenX;
+            prevY = screenY;
+//            cam.position.set(100, 100, 0);
+//            cam.update();
+        }
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchUp");
+        if (button == Input.Buttons.LEFT) {
+            mouseDown = false;
+            prevX = screenX;
+            prevY = screenY;
+        }
         return false;
     }
 
