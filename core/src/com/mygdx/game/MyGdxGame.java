@@ -27,7 +27,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		cam=new OrthographicCamera();
 		debugRenderer=new Box2DDebugRenderer();
 		world=new World(new Vector2(0,-10),true);
-		cam.setToOrtho(false,1200,1200);
+		cam.setToOrtho(false,200,120);
 		batch = new SpriteBatch();
 		tiledMap = new TmxMapLoader().load("core/assets/testMapa.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -55,6 +55,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-
+		debugRenderer.dispose();
+		world.dispose();
 	}
 }
