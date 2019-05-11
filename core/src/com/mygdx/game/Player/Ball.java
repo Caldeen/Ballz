@@ -54,7 +54,7 @@ public class Ball {
     public void move(float newX, float newY) {
 //        body.applyForce(5.0f, 5.0f, body.getPosition().x, body.getPosition().y, true);
 //        body.setTransform((body.getPosition().x + newX) / MyGdxGame.METER_TO_PIX, (body.getPosition().y + newY) / MyGdxGame.METER_TO_PIX, body.getAngle());
-        body.setTransform(newX/MyGdxGame.METER_TO_PIX, newY/MyGdxGame.METER_TO_PIX, body.getAngle());
+        body.setTransform(newX, newY, body.getAngle());
     }
 
 }

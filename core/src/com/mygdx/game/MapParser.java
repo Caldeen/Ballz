@@ -1,9 +1,12 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -11,7 +14,14 @@ public class MapParser {
     private static final String MAP_LAYER_NAME_GROUND = "Ground";
     private static final String MAP_LAYER_NAME_BOUNDS = "Bounds";
     private static final String MAP_LAYER_NAME_DANGERS = "DeathG";
-    public static void parseMapLayers(World world, TiledMap tiledMap) {
+    private AssetManager assetManager=new AssetManager();
+    private TiledMap map;
+private int counter=0;
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public void parseMapLayers(World world, TiledMap tiledMap) {
         for (MapLayer layer : tiledMap.getLayers()) {
             for (MapObject object : layer.getObjects()) {
                 Shape shape;
@@ -28,6 +38,14 @@ public class MapParser {
                     new DangerZone(world, shape);
             }
         }
+
+    }
+    public void manager(){
+        assetManager.setLoader(TiledMap.class,new TmxMapLoader(new InternalFileHandleResolver()));
+        assetManager.load("core/assets/map/map1.tmx",TiledMap.class);
+        assetManager.finishLoading();
+        map=assetManager.get("core/assets/map/map1.tmx");
+
     }
     private static ChainShape createPolyline(PolylineMapObject polyline) {
         float[] vertices = polyline.getPolyline().getTransformedVertices();
