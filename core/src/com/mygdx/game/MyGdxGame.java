@@ -110,9 +110,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (EventHandler.mouseDown) {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
+			Gdx.gl.glLineWidth(10);
 			line.begin(ShapeRenderer.ShapeType.Line);
-			line.setColor(Color.BLACK);
+			line.setColor(Color.CYAN);
 			line.line(EventHandler.prevX, EventHandler.prevY, currentX, currentY);
+			line.end();
+			Gdx.gl.glLineWidth(1);
+			line.begin(ShapeRenderer.ShapeType.Filled);
+			line.circle(EventHandler.prevX, EventHandler.prevY, 10);
 			line.end();
 		}
 	}
