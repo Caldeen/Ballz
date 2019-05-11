@@ -21,6 +21,7 @@ import com.sun.org.apache.xpath.internal.operations.Or;
 
 public class MyGdxGame extends ApplicationAdapter {
 	public static int METER_TO_PIX=16;
+	public static float zoomFactor=0.25f;
 	public static Vector2 screenSize;
 	private World world;
 	private SpriteBatch batch;
@@ -30,26 +31,32 @@ public class MyGdxGame extends ApplicationAdapter {
 	private OrthographicCamera cam;
 	private OrthographicCamera viewCam;
 	private MapParser mapParser;
+    private Vector2 worldSize;
 	Ball ball;
 	ShapeRenderer line;
 
 	@Override
 	public void create () {
-		screenSize=new Vector2(1600,900);
-		cam=new OrthographicCamera();
-		viewCam=new OrthographicCamera();
-		viewCam.setToOrtho(false,100*0.8f,56.25f*0.8f);
-		debugRenderer=new Box2DDebugRenderer();
-		world=new World(new Vector2(0,-10),true);
-		cam.setToOrtho(false,100,56.25f);
-		Gdx.graphics.setWindowedMode((int)screenSize.x,(int)screenSize.y);
-		batch = new SpriteBatch();
+        batch = new SpriteBatch();
+        world=new World(new Vector2(0,-10),true);
+        debugRenderer=new Box2DDebugRenderer();
+        screenSize=new Vector2(1600,900);
+        Gdx.graphics.setWindowedMode((int)screenSize.x,(int)screenSize.y);
+
+
 		tiledMap = new TmxMapLoader().load("core/assets/map/map1.tmx");
 		mapParser=new MapParser();
 		mapParser.parseMapLayers(world, tiledMap);
 		mapParser.manager();
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap,1/32f,batch);
-		ball = new Ball(world, batch, 50.0f, 50.0f, 0.5f);
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap,1f/METER_TO_PIX,batch);
+		worldSize=new Vector2(tiledMap.getProperties().get("width",Integer.class),
+                0);
+		worldSize.y=worldSize.x*9/16;
+        viewCam=new OrthographicCamera();
+        viewCam.setToOrtho(false,worldSize.x*zoomFactor,worldSize.y*zoomFactor);
+        cam=new OrthographicCamera();
+        cam.setToOrtho(false,worldSize.x,worldSize.y);
+		ball = new Ball(world, batch, 20.0f, 20.0f, 0.5f);
 		EventHandler eventHandler = new EventHandler(ball,cam);
 		Gdx.input.setInputProcessor(eventHandler);
 		line = new ShapeRenderer();
@@ -65,14 +72,15 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		viewCam.position.set(ball.getBody().getWorldCenter().x,ball.getBody().getWorldCenter().y,0);
 
-		viewCam.update();
-		cam.update();
-		batch.setProjectionMatrix(cam.combined);
-
-
+        viewCam.update();
+        cam.update();
+		batch.setProjectionMatrix(viewCam.combined);
 
 		tiledMapRenderer.setView(viewCam);
 		tiledMapRenderer.render();
+
+
+
 		debugRenderer.render(world,viewCam.combined);
 
 
