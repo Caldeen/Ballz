@@ -28,19 +28,21 @@ public class MyGdxGame extends ApplicationAdapter {
 	private OrthographicCamera cam;
 	private OrthographicCamera viewCam;
 	private MapParser mapParser;
+
 	Ball ball;
 
 	@Override
 	public void create () {
 		screenSize=new Vector2(1600,900);
-		cam=new OrthographicCamera();
+
 		viewCam=new OrthographicCamera();
 		viewCam.setToOrtho(false,100*0.8f,56.25f*0.8f);
 		debugRenderer=new Box2DDebugRenderer();
 		world=new World(new Vector2(0,-10),true);
-		cam.setToOrtho(false,100,56.25f);
 		Gdx.graphics.setWindowedMode((int)screenSize.x,(int)screenSize.y);
 		batch = new SpriteBatch();
+		cam=new OrthographicCamera();
+		cam.setToOrtho(false,100,56.25f);
 		tiledMap = new TmxMapLoader().load("core/assets/map/map1.tmx");
 		mapParser=new MapParser();
 		mapParser.parseMapLayers(world, tiledMap);
@@ -66,10 +68,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 
-
-
 		tiledMapRenderer.setView(viewCam);
 		tiledMapRenderer.render();
+
+
+
 		debugRenderer.render(world,viewCam.combined);
 
 
