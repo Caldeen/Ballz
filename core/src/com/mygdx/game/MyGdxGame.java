@@ -31,6 +31,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	private OrthographicCamera viewCam;
 	private MapParser mapParser;
 	Ball ball;
+	ShapeRenderer line;
 
 	@Override
 	public void create () {
@@ -51,6 +52,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		ball = new Ball(world, batch, 50.0f, 50.0f, 0.5f);
 		EventHandler eventHandler = new EventHandler(ball,cam);
 		Gdx.input.setInputProcessor(eventHandler);
+		line = new ShapeRenderer();
 
 	}
 
@@ -91,14 +93,16 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (EventHandler.mouseDown) {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
-			ShapeRenderer line = new ShapeRenderer();
 
-			line.setProjectionMatrix(viewCam.combined);
+//			line.setProjectionMatrix(viewCam.combined);
 
 			line.begin(ShapeRenderer.ShapeType.Line);
 			line.setColor(Color.BLACK);
-			line.line(EventHandler.prevX, EventHandler.prevY, currentX, currentY);
+//			line.line(EventHandler.prevX, EventHandler.prevY, currentX, currentY);
+			line.line(ball.getBody().getPosition().x*METER_TO_PIX, ball.getBody().getPosition().y*METER_TO_PIX, currentX, currentY);
 			line.end();
+
+			System.out.println(currentX + " " + currentY);
 		}
 	}
 
