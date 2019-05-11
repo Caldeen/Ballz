@@ -51,8 +51,8 @@ private int counter=0;
         float[] vertices = polyline.getPolyline().getTransformedVertices();
         Vector2[] worldVerticies = new Vector2[vertices.length / 2];
         for (int i = 0; i < worldVerticies.length; i++) {
-            worldVerticies[i] = new Vector2(vertices[i * 2] / MyGdxGame.METER_TO_PIX/2,
-                    vertices[i * 2 + 1] / MyGdxGame.METER_TO_PIX/2);
+            worldVerticies[i] = new Vector2(vertices[i * 2] / MyGdxGame.METER_TO_PIX,
+                    vertices[i * 2 + 1] / MyGdxGame.METER_TO_PIX);
         }
         ChainShape cs = new ChainShape();
         cs.createChain(worldVerticies);
