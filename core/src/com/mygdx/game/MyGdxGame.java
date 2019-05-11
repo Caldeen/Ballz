@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -32,11 +33,15 @@ public class MyGdxGame extends ApplicationAdapter {
 	private OrthographicCamera viewCam;
 	private MapParser mapParser;
     private Vector2 worldSize;
+    Texture ballT;
+    Sprite ballS;
 	Ball ball;
 	ShapeRenderer line;
 
 	@Override
 	public void create () {
+        ballT=new Texture("core/assets/ball.png");
+        ballS=new Sprite(ballT);
         batch = new SpriteBatch();
         world=new World(new Vector2(0,-10),true);
         debugRenderer=new Box2DDebugRenderer();
@@ -55,9 +60,9 @@ public class MyGdxGame extends ApplicationAdapter {
         viewCam=new OrthographicCamera();
         viewCam.setToOrtho(false,worldSize.x*zoomFactor,worldSize.y*zoomFactor);
         cam=new OrthographicCamera();
-        cam.setToOrtho(false,worldSize.x,worldSize.y);
-		ball = new Ball(world, batch, 20.0f, 20.0f, 0.5f);
-		EventHandler eventHandler = new EventHandler(ball,cam);
+        cam.setToOrtho(false,screenSize.x,screenSize.y);
+		ball = new Ball(world, batch, 20.0f, 20.0f, 0.45f,ballS);
+		EventHandler eventHandler = new EventHandler(ball,viewCam);
 		Gdx.input.setInputProcessor(eventHandler);
 		line = new ShapeRenderer();
 
@@ -74,17 +79,18 @@ public class MyGdxGame extends ApplicationAdapter {
 
         viewCam.update();
         cam.update();
-		batch.setProjectionMatrix(viewCam.combined);
+
 
 		tiledMapRenderer.setView(viewCam);
 		tiledMapRenderer.render();
-
+        batch.setProjectionMatrix(cam.combined);
 
 
 		debugRenderer.render(world,viewCam.combined);
 
 
 		batch.begin();
+		    ball.draw(batch);
 		batch.end();
 		draw_vec();
 
@@ -95,23 +101,19 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.dispose();
 		debugRenderer.dispose();
 		world.dispose();
+		tiledMap.dispose();
+		tiledMapRenderer.dispose();
+
 	}
 
-	private void draw_vec() { //not working
+	private void draw_vec() {
 		if (EventHandler.mouseDown) {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
-
-
 			line.begin(ShapeRenderer.ShapeType.Line);
 			line.setColor(Color.BLACK);
-
-			line.line(screenSize.x/2, screenSize.y/2, screenSize.x/2+ currentX-EventHandler.prevX
-					, screenSize.y/2+ currentY-EventHandler.prevY);
+			line.line(EventHandler.prevX, EventHandler.prevY, currentX, currentY);
 			line.end();
-
-			System.out.println(currentX + " " + currentY);
-			System.out.println(" prev: "+EventHandler.prevX+" "+EventHandler.prevY);
 		}
 	}
 

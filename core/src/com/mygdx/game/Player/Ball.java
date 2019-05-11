@@ -12,13 +12,13 @@ public class Ball {
     private Body body;
     private float x, y, radius, gravityScale = 5;
     private Sprite sprite;
-    public Ball(World world, Batch batch, float x, float y, float radius) {
+    public Ball(World world, Batch batch, float x, float y, float radius,Sprite sprite) {
         this.world = world;
         this.batch = batch;
         this.x = x;
         this.y = y;
         this.radius = radius;
-//        this.sprite = sprite;
+        this.sprite = sprite;
         onCreate();
     }
 
@@ -46,7 +46,12 @@ public class Ball {
     public void update() {
 
     }
+    public void draw(Batch batch){
 
+        sprite.setPosition(MyGdxGame.screenSize.x/2-radius*MyGdxGame.METER_TO_PIX,MyGdxGame.screenSize.y/2-radius*MyGdxGame.METER_TO_PIX);
+        sprite.setScale(2f);
+        sprite.draw(batch);
+    }
     public Body getBody() {
         return body;
     }
