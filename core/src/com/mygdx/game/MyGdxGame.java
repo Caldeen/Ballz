@@ -106,10 +106,12 @@ public class MyGdxGame extends ApplicationAdapter {
 			line.begin(ShapeRenderer.ShapeType.Line);
 			line.setColor(Color.BLACK);
 
-			line.line(screenSize.x/2, screenSize.y/2, currentX, currentY);
+			line.line(screenSize.x/2, screenSize.y/2, screenSize.x/2+ currentX-EventHandler.prevX
+					, screenSize.y/2+ currentY-EventHandler.prevY);
 			line.end();
 
 			System.out.println(currentX + " " + currentY);
+			System.out.println(" prev: "+EventHandler.prevX+" "+EventHandler.prevY);
 		}
 	}
 
