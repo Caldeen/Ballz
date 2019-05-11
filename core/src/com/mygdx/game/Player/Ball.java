@@ -10,7 +10,7 @@ public class Ball {
     private BodyDef bodyDef = new BodyDef();
     private Batch batch;
     private Body body;
-    private float x, y, radius, gravityScale = 5;
+    private float x, y, radius, gravityScale = 30;
     private Sprite sprite;
     public Ball(World world, Batch batch, float x, float y, float radius) {
         this.world = world;
@@ -26,7 +26,6 @@ public class Ball {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x, y);
         body = world.createBody(bodyDef);
-        body.setBullet(true);
 
         Shape circle = new CircleShape();
         circle.setRadius(radius);
