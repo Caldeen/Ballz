@@ -2,10 +2,12 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -56,7 +58,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		moveBall();
 
 		world.step(1/60f, 6, 2);
 
@@ -74,8 +75,9 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		batch.begin();
-
 		batch.end();
+		draw_vec();
+
 	}
 	
 	@Override
@@ -85,13 +87,18 @@ public class MyGdxGame extends ApplicationAdapter {
 		world.dispose();
 	}
 
-	public void moveBall() {
+	private void draw_vec() { //not working
 		if (EventHandler.mouseDown) {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
-			float vecX = -(currentX-EventHandler.prevX) / 100f;
-			float vecY = -(currentY-EventHandler.prevY) / 56.25f;
-			ball.move(vecX, vecY);
+			ShapeRenderer line = new ShapeRenderer();
+
+			line.setProjectionMatrix(viewCam.combined);
+
+			line.begin(ShapeRenderer.ShapeType.Line);
+			line.setColor(Color.BLACK);
+			line.line(EventHandler.prevX, EventHandler.prevY, currentX, currentY);
+			line.end();
 		}
 	}
 

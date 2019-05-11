@@ -52,8 +52,7 @@ public class Ball {
     }
 
     public void move(float newX, float newY) {
-//        body.setTransform(body.getPosition().x + newX, body.getPosition().y + newY, body.getAngle());
-        body.applyForce(newX, newY, body.getPosition().x, body.getPosition().y, true);
+        body.applyLinearImpulse(newX, newY, body.getPosition().x, body.getPosition().y, true);
     }
 
 }
