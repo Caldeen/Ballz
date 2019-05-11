@@ -97,19 +97,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		world.dispose();
 	}
 
-	private void draw_vec() { //not working
+	private void draw_vec() {
 		if (EventHandler.mouseDown) {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
-
-
 			line.begin(ShapeRenderer.ShapeType.Line);
 			line.setColor(Color.BLACK);
-
-			line.line(screenSize.x/2, screenSize.y/2, currentX, currentY);
+			line.line(EventHandler.prevX, EventHandler.prevY, currentX, currentY);
 			line.end();
-
-			System.out.println(currentX + " " + currentY);
 		}
 	}
 
