@@ -102,12 +102,11 @@ public class MyGdxGame extends ApplicationAdapter {
 			float currentX = Gdx.input.getX();
 			float currentY = MyGdxGame.screenSize.y - Gdx.input.getY();
 
-//			line.setProjectionMatrix(viewCam.combined);
 
 			line.begin(ShapeRenderer.ShapeType.Line);
 			line.setColor(Color.BLACK);
-//			line.line(EventHandler.prevX, EventHandler.prevY, currentX, currentY);
-			line.line(ball.getBody().getPosition().x*METER_TO_PIX, ball.getBody().getPosition().y*METER_TO_PIX, currentX, currentY);
+
+			line.line(screenSize.x/2, screenSize.y/2, currentX, currentY);
 			line.end();
 
 			System.out.println(currentX + " " + currentY);
